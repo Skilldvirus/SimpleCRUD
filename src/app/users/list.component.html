@@ -1,0 +1,38 @@
+﻿<h1>Users</h1>
+
+<input type="text" id="search" placeholder="Search">
+<button (click)="searchTable()" btn-success mb-2> Search </button>
+<a (click)="deleteTable($event)" class="btn btn-sm btn-danger mb-2" style="float:right">Delete</a>
+<a routerLink="add" class="btn btn-sm btn-success mb-2" style="float:right">+</a>
+<a (click)="refreshTable()" class="btn btn-sm btn-primary mb-2" style="float:right">Refresh</a>&nbsp;
+<table class="table table-striped" id="myTable">
+    <thead>
+        <tr id ="tableHeader">
+            <th style="width: 10%">&nbsp;</th>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Email</th>
+            <th style="width: 30%">Role</th>
+            <th style="width: 10%">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td><input type="checkbox" name="name1" (click)="selectID(user.id,$event)"/>&nbsp;</td>
+            <td>{{user.title}} {{user.firstName}} {{user.lastName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
+                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!user.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!users">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
